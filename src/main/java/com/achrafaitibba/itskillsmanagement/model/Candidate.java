@@ -22,6 +22,5 @@ public class Candidate {
     private String resume;
     @OneToOne
     private User user;
-    @OneToMany
-    private List<Skill> skills;
+
 }
