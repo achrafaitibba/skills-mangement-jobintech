@@ -1,7 +1,8 @@
 package com.achrafaitibba.itskillsmanagement.controller;
 
+import com.achrafaitibba.itskillsmanagement.dto.UserAuthenticationRequest;
 import com.achrafaitibba.itskillsmanagement.dto.UserRegistrationRequest;
-import com.achrafaitibba.itskillsmanagement.dto.UserRegistrationResponse;
+import com.achrafaitibba.itskillsmanagement.dto.UserResponse;
 import com.achrafaitibba.itskillsmanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +18,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public UserRegistrationResponse registerUser(@RequestBody UserRegistrationRequest user){
+    public UserResponse registerUser(@RequestBody UserRegistrationRequest user){
         return userService.register(user);
+    }
+
+    @PostMapping("/authenticate")
+    public UserResponse authenticate(@RequestBody UserAuthenticationRequest request){
+        return userService.authenticate(request);
+
     }
 
 

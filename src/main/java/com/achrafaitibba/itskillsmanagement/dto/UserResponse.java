@@ -1,6 +1,6 @@
 package com.achrafaitibba.itskillsmanagement.dto;
 
-public record UserRegistrationResponse(
+public record UserResponse(
         String firstName,
         String lastName,
         String email,

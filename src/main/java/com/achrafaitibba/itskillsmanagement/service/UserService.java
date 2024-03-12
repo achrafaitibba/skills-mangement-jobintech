@@ -4,8 +4,9 @@ import com.achrafaitibba.itskillsmanagement.configuration.token.JwtService;
 import com.achrafaitibba.itskillsmanagement.configuration.token.Token;
 import com.achrafaitibba.itskillsmanagement.configuration.token.TokenRepository;
 import com.achrafaitibba.itskillsmanagement.configuration.token.TokenType;
+import com.achrafaitibba.itskillsmanagement.dto.UserAuthenticationRequest;
 import com.achrafaitibba.itskillsmanagement.dto.UserRegistrationRequest;
-import com.achrafaitibba.itskillsmanagement.dto.UserRegistrationResponse;
+import com.achrafaitibba.itskillsmanagement.dto.UserResponse;
 import com.achrafaitibba.itskillsmanagement.enums.Role;
 import com.achrafaitibba.itskillsmanagement.exception.ApiException;
 import com.achrafaitibba.itskillsmanagement.exception.CustomErrorMessage;
@@ -15,12 +16,16 @@ import com.achrafaitibba.itskillsmanagement.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import static com.achrafaitibba.itskillsmanagement.exception.CustomErrorMessage.ACCOUNT_NOT_EXIST;
+import static com.achrafaitibba.itskillsmanagement.exception.CustomErrorMessage.PASSWORD_INCORRECT;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +37,7 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
 
 
-    public UserRegistrationResponse register(UserRegistrationRequest user) {
+    public UserResponse register(UserRegistrationRequest user) {
 
         if(userRepository.findByEmail(user.email()).isPresent()){
             throw new RequestException(CustomErrorMessage.ACCOUNT_ALREADY_EXIST.getMessage(), HttpStatus.CONFLICT);
@@ -52,7 +57,7 @@ public class UserService {
         var jwtToken = jwtService.generateToken(claims, toSave);
         var refreshToken = jwtService.generateRefreshToken(toSave);
         saveUserToken(toSave, jwtToken);
-        return new UserRegistrationResponse(
+        return new UserResponse(
                 toSave.getFirstName(),
                 toSave.getLastName(),
                 toSave.getEmail(),
@@ -75,4 +80,32 @@ public class UserService {
         tokenRepository.save(token);
     }
 
+    public UserResponse authenticate(UserAuthenticationRequest request) {
+            Optional<User> toAuthenticate = userRepository.findByEmail(request.email());
+            if (!toAuthenticate.isPresent()) {
+                throw new RequestException(ACCOUNT_NOT_EXIST.getMessage(), HttpStatus.NOT_FOUND);
+            } else if (!passwordEncoder.matches(request.password(), toAuthenticate.get().getPassword())) {
+                throw new RequestException(PASSWORD_INCORRECT.getMessage(), HttpStatus.NOT_FOUND);
+            }
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.email(),
+                            request.password()
+                    )
+            );
+            var jwtToken = jwtService.generateToken(new HashMap<>(), toAuthenticate.get());
+            var refreshToken = jwtService.generateRefreshToken(toAuthenticate.get());
+            saveUserToken(userRepository.findByEmail(request.email()).get(), jwtToken);
+            return new UserResponse(
+                    toAuthenticate.get().getFirstName(),
+                    toAuthenticate.get().getLastName(),
+                    request.email(),
+                    toAuthenticate.get().getPhoneNumber(),
+                    toAuthenticate.get().getAddress(),
+                    toAuthenticate.get().getRole().toString(),
+                    jwtToken,
+                    refreshToken);
+
+
+    }
 }
