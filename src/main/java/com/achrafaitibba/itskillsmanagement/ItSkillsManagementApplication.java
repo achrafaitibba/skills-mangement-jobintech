@@ -12,5 +12,5 @@ public class ItSkillsManagementApplication extends SpringBootServletInitializer 
     public static void main(String[] args) {
         SpringApplication.run(ItSkillsManagementApplication.class, args);
     }
-
+    //todo, email extraction in claims, make it in one single method
 }

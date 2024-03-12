@@ -53,7 +53,7 @@ public class SecurityConfigurationFilter {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout()
-                .logoutUrl("/api/logout")
+                .logoutUrl("/api/v1/logout")
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler(
                         (request,

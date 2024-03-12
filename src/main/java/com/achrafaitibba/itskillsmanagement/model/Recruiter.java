@@ -20,6 +20,6 @@ public class Recruiter {
     private String companyName;
     @OneToOne
     private User user;
-    @OneToMany
-    private List<Offer> offers;
+//    @OneToMany()
+//    private List<Offer> offers;
 }

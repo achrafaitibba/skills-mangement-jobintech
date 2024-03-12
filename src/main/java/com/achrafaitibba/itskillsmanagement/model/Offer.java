@@ -1,14 +1,12 @@
 package com.achrafaitibba.itskillsmanagement.model;
 
-import com.achrafaitibba.itskillsmanagement.model.Application;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryCustomizer;
 
 import java.util.List;
 
@@ -25,6 +23,9 @@ public class Offer {
     private String description;
     private Long salary;
     private String location;
+    @JsonIgnore
     @OneToMany
     private List<Application> applications;
+    @ManyToOne
+    private Recruiter recruiter;
 }

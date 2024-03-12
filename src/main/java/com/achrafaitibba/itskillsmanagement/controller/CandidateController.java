@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.*;
 public class CandidateController {
     private final CandidateService candidateService;
 
-
     @PostMapping("/uploadResume")
     public String addResume(@RequestBody String url){
         return candidateService.uploadResume(url);
     }
+
+
+    //todo, add/delete skill
 }
