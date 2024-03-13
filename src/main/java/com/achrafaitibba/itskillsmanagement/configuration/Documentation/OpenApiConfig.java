@@ -22,14 +22,10 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 version = "1.0",
                 license = @License(
                         name = "MIT License",
-                        url = "https://github.com/achrafaitibba/where_is_my_money/blob/master/LICENSE.md"
+                        url = "https://github.com/achrafaitibba/skills-mangement-jobintech/blob/main/LICENSE.md"
                 )
         ),
         servers = {
-                @Server(
-                        description = "PROD/test ENV",
-                        url = "https://wmm.up.railway.app"
-                ),
                 @Server(
                         description = "Local ENV",
                         url = "http://localhost:8080"
