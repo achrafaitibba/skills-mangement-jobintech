@@ -36,7 +36,19 @@ public class SecurityConfigurationFilter {
                 .requestMatchers(
                         "/api/v1/user/register",
                         "/api/v1/user/refresh-token",
-                        "/api/v1/user/authenticate"
+                        "/api/v1/user/authenticate",
+                        "/api/v1/questions",
+                        "/swagger-ui/index.html#",
+                        "/v2/api-docs",
+                        "/v3/api-docs",
+                        "/v3/api-docs/**",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/swagger-ui/**",
+                        "/webjars/**",
+                        "/swagger-ui.html"
                 )
                 .permitAll()
                 //////////////////////
