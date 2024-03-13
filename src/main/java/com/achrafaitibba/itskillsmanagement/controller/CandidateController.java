@@ -2,10 +2,8 @@ package com.achrafaitibba.itskillsmanagement.controller;
 
 import com.achrafaitibba.itskillsmanagement.dto.SkillRequest;
 import com.achrafaitibba.itskillsmanagement.dto.SkillResponse;
-import com.achrafaitibba.itskillsmanagement.model.Skill;
 import com.achrafaitibba.itskillsmanagement.service.CandidateService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.LifecycleState;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

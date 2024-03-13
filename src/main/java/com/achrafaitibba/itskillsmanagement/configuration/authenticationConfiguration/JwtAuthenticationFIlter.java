@@ -56,7 +56,8 @@ public class JwtAuthenticationFIlter extends OncePerRequestFilter {
          * @SecurityContextHolder.getContext().getAuthentication()
          * even in a stateless application,
          * the server may need to maintain some context during the processing of a request.
-         * In a stateless application, the SecurityContext is typically cleared after each request, as the server doesn't store any session state. However, during the processing of a single request, the server may temporarily use the SecurityContext to hold authentication information.
+         * In a stateless application, the SecurityContext is typically cleared after each request, as the server doesn't store any session state.
+         * However, during the processing of a single request, the server may temporarily use the SecurityContext to hold authentication information.
          * The check SecurityContextHolder.getContext().getAuthentication() == null
          * is likely used to ensure that the authentication process
          * (loading user details, validating the token, and setting the authentication in the context)
