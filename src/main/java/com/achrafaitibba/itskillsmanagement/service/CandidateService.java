@@ -6,7 +6,6 @@ import com.achrafaitibba.itskillsmanagement.dto.SkillResponse;
 import com.achrafaitibba.itskillsmanagement.enums.Level;
 import com.achrafaitibba.itskillsmanagement.model.Candidate;
 import com.achrafaitibba.itskillsmanagement.model.Skill;
-import com.achrafaitibba.itskillsmanagement.model.User;
 import com.achrafaitibba.itskillsmanagement.repository.CandidateRepository;
 import com.achrafaitibba.itskillsmanagement.repository.SkillRepository;
 import com.achrafaitibba.itskillsmanagement.repository.UserRepository;
